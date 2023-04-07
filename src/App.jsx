@@ -1,30 +1,56 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { Toaster } from "react-hot-toast";
+import { useContext, useEffect } from "react";
+import axios from "axios";
+import { Context, server } from "./main";
 import { ColorModeContext, useMode } from "./theme";
-import Topbar from "./components/TopBar";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
 function App() {
   const [theme, colorMode] = useMode();
+  const { setUser, setIsAuthenticated, setLoading } = useContext(Context);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`${server}/users/me`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setUser(res.data.user);
+        setIsAuthenticated(true);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setUser({});
+        setIsAuthenticated(false);
+        setLoading(false);
+      });
+  }, []);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
-    <ThemeProvider theme={theme}>
-    <CssBaseline />
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
     <Router>
-      <Topbar/>
-        <Routes>
+      <Header />
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/Register" element={<Register />} />
       </Routes>
+      <Toaster />
     </Router>
     </ThemeProvider>
     </ColorModeContext.Provider>
-  )
+  );
 }
 
-export default App
+export default App;
