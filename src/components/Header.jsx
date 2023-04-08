@@ -75,11 +75,11 @@ const Header = () => {
               </IconButton>
             </Box>
           ) : (
-            <a href="/login">
+            <Link to={"/login"}>
               <IconButton>
                 <LoginIcon />
               </IconButton>
-            </a>
+            </Link>
           )}
         </Box>
       </Box>

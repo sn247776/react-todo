@@ -54,7 +54,7 @@ const Login = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      height="calc(100vh - 100px)"
+      height="calc(90vh - 100px)"
       marginX={2}
     >
       <Box width="90vw" maxWidth="500px">
@@ -93,7 +93,7 @@ const Login = () => {
               disabled={loading}
               endIcon={<SendIcon />}
             >
-              Login{" "}
+              Login
             </Button>
           </Box>
           <Box display="flex" alignItems="center" flexDirection="column">
