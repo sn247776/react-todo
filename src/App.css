@@ -13,6 +13,11 @@
     color: #ffa726;
   }
 
+  h4{
+    font-size: 20px;
+    margin: 5px 0px;
+  }
+
 
 
 @media screen and (max-width: 400px) {
